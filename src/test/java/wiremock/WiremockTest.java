@@ -19,19 +19,21 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 public class WiremockTest {
 
 	Client client;
-	WebTarget target;
 
 	@Before
 	public void setUp() {
 		client = ClientBuilder.newClient();
-		target = client.target("http://localhost:8089").path("/my/resource");
+	}
+	
+	private WebTarget target(String path) {
+		return client.target("http://localhost:8089").path(path);
 	}
 	
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(8089);
 	
 	@Test
-	public void exampleTest() {
+	public void getTextXml() {
 		stubFor(get(urlEqualTo("/my/resource"))
 				.withHeader("Accept", equalTo("text/xml"))
 				.willReturn(aResponse()
@@ -39,10 +41,50 @@ public class WiremockTest {
 						.withHeader("Content-Type", "text/xml")
 						.withBody("<response>cake</response>")));
 
-		Response response = target.request(MediaType.TEXT_XML).get();
+		Response response = target("/my/resource").request(MediaType.TEXT_XML).get();
 		
 		assertThat(response.getStatus(), is(200));
 		assertThat(response.readEntity(String.class), containsString(">cake<"));
 	}
 
+	@Test
+	public void getJsonEntity() {
+		stubFor(get(urlEqualTo("/tvs"))
+				.withHeader("Accept", equalTo("application/json"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader("Content-Type", "application/json")
+						.withBody("{ \"brand\":\"Sony\" , \"size\":43 }")));
+
+		Response response = target("/tvs").request(MediaType.APPLICATION_JSON).get();
+		
+		assertThat(response.getStatus(), is(200));
+		assertThat(response.readEntity(Tele.class), is(new Tele("Sony", 43)));
+	}
+
+	// serializable entity: must be static, must have default ctor,
+	// fields must be public or have public getter/setter
+	public static class Tele {
+		public String brand;
+		private int size;
+		public Tele(String brand, int size) {
+			this.brand = brand;
+			this.size = size;
+		}
+		
+		public Tele() {}
+		
+		@Override
+		public boolean equals(Object obj) {
+			Tele other = (Tele) obj;
+			return this.brand.equals(other.brand) && this.size == other.size;
+		}
+		public int getSize() {
+			return size;
+		}
+		public void setSize(int size) {
+			this.size = size;
+		}
+	}
+	
 }
