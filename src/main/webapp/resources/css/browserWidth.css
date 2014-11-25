@@ -1,0 +1,92 @@
+/* 
+    Document   : browserWidth
+    Created on : 25-Jan-2012, 16:41:37
+    Author     : adrian
+    Description: handles screen size changes
+*/
+@media screen and (max-width:1260px) {
+	/* Communication Centre*/
+	#noticesPanel {
+		width:100%;
+		display:inline-block;
+	}
+
+	#emailPanel {
+		width:100%;
+		display:inline-block;
+	}
+	
+	.detailSection.emailDetail {
+		height:600px;
+	}
+	/* Domains*/
+	.detailSection {
+		width:100%;
+		margin-top:4px;
+		margin-left:0px;
+	}
+	
+	.resultsSection {
+		width:100%;
+	}
+	
+	.detailColumn {
+		display:inline-block; 
+		width:49.7%;
+	}
+	#userWelcome {
+		display:none;
+	}
+	
+}
+
+@media screen and (min-width:1260px) {
+	/* Communication Centre*/
+	#noticesPanel { 
+		width:40%;
+	}
+	#emailPanel {
+		width:60%;
+	}
+	.detailSection.emailDetail {
+		width:58%;
+	}
+	/* Domains*/
+	.detailSection {
+		width:36%;
+		margin-left:16px;
+		margin-top:40px;
+	}
+	
+	/* Notices with cc or bcc fields*/
+	.detailContent.hasCc {
+		height:430px;
+	}
+	.detailContent.hasBcc {
+		height:430px;
+	}
+	.detailContent.hasCc.hasBcc {
+		height:411px;
+	}
+	/**-----------*/
+	.detailColumn {
+		display:inline-block; 
+		width:100%;
+	}
+	#userWelcomeInAccounts {
+		display:none;
+	}
+}
+
+@media screen and (min-width:1600px) {
+	.detailSection {
+		width:50%;
+		margin-left:16px;
+		margin-top:40px;
+	}
+
+	.detailColumn {
+		width:49.7%;
+	}
+
+}

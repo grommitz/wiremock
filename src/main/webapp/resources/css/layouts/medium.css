@@ -1,0 +1,84 @@
+/* 
+    Document   : large
+    Created on : 30-May-2013, 10:21:21
+    Author     : ameredith
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.mainPanelContainer { 
+    padding-left: 500px;
+}
+
+button.mainHeaderButton > img {
+	height:36px;
+	width:36px;
+}
+
+.domainsSearchField{
+	width:30%;
+	
+}
+
+button.mainHeaderButton{
+	margin-left: 2px;
+	margin-right:2px;
+}
+
+.mainResultsPanel {
+	width:500px;
+	margin-left:0px;
+}
+.mainDetailPanel {
+	margin-left: 500px;
+}
+.csstransforms .mainFilterPanel {
+	-webkit-transform: translate3d(-200px,0px,0px);
+	-moz-transform: translate3d(-200px,0px,0px);
+	-ms-transform: translate3d(-200px,0px,0px);
+	transform: translate3d(-200px,0px,0px);
+}
+
+.no-csstransforms3d .mainFilterPanel {
+	left:-200px;
+}
+
+.csstransforms .activeFilterPanel{
+	-webkit-transform: translate3d(0px,0px,0px);
+	-moz-transform: translate3d(0px,0px,0px);
+	-ms-transform: translate3d(0px,0px,0px);
+	transform: translate3d(0px,0px,0px);
+}
+
+.no-csstransforms3d .activeFilterPanel{
+	left:0px;
+}
+
+button.mainHeaderButton > img {
+	height:36px;
+	width:36px;
+}
+
+.closeDetailPanelButton {
+	display:none;
+}
+
+.editableField{
+	width:50%;
+}
+.editableFieldInput{
+	border :2px solid transparent;
+}
+
+.editableFields>div:nth-child(4n+0) {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) {
+	background:#F1F0F0 ;
+}
+
+.editableFields>div:nth-child(4n+0) input {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) input{
+	background:#F1F0F0 ;
+}

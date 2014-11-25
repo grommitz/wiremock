@@ -1,0 +1,130 @@
+/* 
+    Document   : large
+    Created on : 30-May-2013, 10:21:21
+    Author     : ameredith
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.mainPanelContainer { 
+    padding-left: 500px;
+}
+
+.mainResultsPanel {
+	width:100%;
+	margin-left:0px;
+}
+.csstransforms .mainFilterPanel {
+	-webkit-transform: translate3d(-200px,0px,0px);
+	-moz-transform: translate3d(-200px,0px,0px);
+	-ms-transform: translate3d(-200px,0px,0px);
+	transform: translate3d(-200px,0px,0px);
+}
+
+.no-csstransforms3d .mainFilterPanel {
+	left:-200px;
+}
+
+.csstransforms .mainDetailPanel {
+	-webkit-transform: translate3d(100%,0px,0px);
+	-moz-transform: translate3d(100%,0px,0px);
+	-ms-transform: translate3d(100%,0px,0px);
+	transform: translate3d(100%,0px,0px);
+}
+
+.no-csstransforms3d .mainDetailPanel {
+	left:-100%;
+}
+
+.csstransforms .activeDetailPanel{
+	-webkit-transform: translate3d(0px,0px,0px);
+	-moz-transform: translate3d(0px,0px,0px);
+	-ms-transform: translate3d(0px,0px,0px);
+	transform: translate3d(0px,0px,0px);
+}
+
+.no-csstransforms3d .activeDetailPanel {
+	left:0px;
+}
+
+.csstransforms .activeFilterPanel{
+	-webkit-transform: translate3d(0px,0px,0px);
+	-ms-transform: translate3d(0px,0px,0px);
+	-moz-transform: translate3d(0px,0px,0px);
+	transform: translate3d(0px,0px,0px);
+}
+
+.no-csstransforms3d .activeFilterPanel{
+	left:0px;
+}
+
+.detailHeader {
+	font-size:1.2em;
+}
+
+.detailHeaderDomainName {
+	padding: 3px;
+	width: 60%;
+}
+.mainDetailPanel {
+	background:white;
+	z-index:20;
+	margin-top:32px !important; 
+	margin-left:0px;
+	width:100%;
+}
+
+header#mainHeaderPanel{
+	padding:10px !important;
+}
+.leftNavigationBar {
+	display:none;
+}
+
+
+button.mainHeaderButton {
+	padding:0px;
+	margin:0px;
+}
+
+button.mainHeaderButton > img {
+	height:36px;
+	width:36px;
+}
+
+.editableField{
+	width:50%;
+}
+.editableFieldInput{
+	border :2px solid transparent;
+}
+
+.editableFields>div:nth-child(4n+0) {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) {
+	background:#F1F0F0 ;
+}
+
+.editableFields>div:nth-child(4n+0) input {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) input{
+	background:#F1F0F0 ;
+}
+
+.phoneNavigationBar {
+	display:inherit !important;
+}
+
+.WebResultsDetailPanel {
+	font-size: 0.9em;
+}
+
+.webResultsDetailPanel > header {
+	padding:0px;
+}
+
+.WebResultDetailTabPanel{
+	font-size: 1.1em;
+}

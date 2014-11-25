@@ -1,0 +1,40 @@
+/* 
+    Document   : large
+    Created on : 30-May-2013, 10:21:21
+    Author     : ameredith
+    Description:
+        Purpose of the stylesheet follows.
+*/
+button.mainHeaderButton > img {
+	height:36px;
+	width:36px;
+}
+
+button.showFilterPanelButton {
+	display:none;
+}
+
+button.closeDetailPanelButton {
+	display:none;
+}
+
+.editableField{
+	width:50%;
+}
+.editableFieldInput{
+	border :2px solid transparent;
+}
+
+.editableFields>div:nth-child(4n+0) {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) {
+	background:#F1F0F0 ;
+}
+
+.editableFields>div:nth-child(4n+0) input {
+	background:#F1F0F0 ;
+}
+.editableFields>div:nth-child(4n+1) input{
+	background:#F1F0F0 ;
+}

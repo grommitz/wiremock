@@ -1,0 +1,56 @@
+/* 
+    Document   : mainNavigation
+    Created on : 23-Apr-2012, 14:34:08
+    Author     : adrian
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.userSettingsDropDown {
+	position: absolute; 
+	background: none repeat scroll 0% 0% white; 
+	z-index: 110; border-width: 1px; 
+	border-style: solid; 
+	border-color: rgb(102, 102, 102); 
+	top: 32px; 
+	padding: 4px; 
+	left: auto; 
+	right: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.userSettingsDropDown > * {
+	line-height:25px;
+	margin-bottom:2px;
+	padding:0 0.3em;
+	text-decoration:none;
+}
+
+
+.leftNavigationBar > ul > li {
+    -moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+}
+
+.leftNavigationBar > ul > li:hover:not(.selectionActive) {
+    background: none repeat scroll 0 0 #E5E5E5;
+}
+
+.leftNavigationBar > ul > li {
+    display:inline-block;
+}
+
+.topNav ul > li > a {
+	font-size:0.9em;
+	line-height:25px;
+	margin-bottom:2px;
+	padding:0 0.3em;
+	text-decoration:none;
+}
+
+.navMenuExtra > li > a {
+	text-decoration:none;
+	font-size:0.9em;
+	line-height:25px;
+	margin-bottom:2px;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:t="http://java.sun.com/jsf/composite/components/templates"
+	  xmlns:p="http://java.sun.com/jsf/composite/components/panels"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	   style="height:100%; width:100%;">
+    <h:head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta content='True' name='HandheldFriendly' />
+		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+		</style>
+		<link rel="stylesheet" type="text/css" href="resources/fonts/roboto-font.css" media="screen"/>
+        <title><ui:insert name="title">Title Goes Here</ui:insert></title>
+<!-- 		<t:includes /> -->
+		<ui:insert name="header"></ui:insert>
+    </h:head>
+    <h:body style="height:100%; width:100%;overflow-y:hidden;-webkit-transform: translate3d(0,0,0);">
+		<f:view encoding="utf-8" contentType="text/html">
+			<ui:include src="components.xhtml"></ui:include>
+			<div id="maskShade" class="maskShade"></div>
+			<div id="mask" class="mask"></div>
+			<div id="wrapper">
+				<div id="userAccountSettingsWindow"/>
+				<!-- Begin Header -->
+				<div id="header">
+					<div id="topNav" style="float:left;height:32px; width:100%;">
+						<ui:include src="../../mainNavigation.xhtml"/>
+					</div>
+				</div>
+				<!-- Begin Content -->
+				<h:panelGroup id="content" layout="block" class="mainPanel" style="clear:both; padding:6px; padding-top: 0px;">
+					<ui:insert name="content"/>
+				</h:panelGroup>
+				<div id="footer">
+					<script type="text/javascript">
+						setTimeout(function() {
+							$('.initialLoad').removeClass('initialLoad');
+						}
+						,250);
+						setTimeout(function() {
+							$(".transition-initialLoad").removeClass("transition-initialLoad");
+							$('#shareWhois').removeClass('disabled');
+						}
+						,1250);
+						$(document).ready(function() {
+							$('body').bind('ajaxError',function(event,request,settings){
+								if(request.status=="403") {
+									window.location.reload();
+								}
+							});
+							De3.init();
+						});
+					</script>
+					<ui:insert name="footer"/>
+				</div>
+			</div>
+		</f:view>
+	</h:body>
+</html>

@@ -1,0 +1,76 @@
+/* 
+    Document   : large
+    Created on : 30-May-2013, 10:21:21
+    Author     : ameredith
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.domainsSearchField {
+	width:64px;
+	-webkit-transform: translate3d(0px,0px,0px);
+	-moz-transform: translate3d(0px,0px,0px);
+	-ms-transform: translate3d(0px,0px,0px);
+	transform: translate3d(0px,0px,0px);
+}
+.editableField{
+	width:100% !important;
+}
+.domainsSearchField:focus{
+	width:160px;
+}
+
+
+.editableFields>div:nth-child(odd) {
+	background:#F1F0F0 ;
+}
+
+.editableFields>div:nth-child(odd) input{
+	background:#F1F0F0;
+}
+.editableFields>div:nth-child(even) {
+	background:white;
+}
+
+.editableFields>div:nth-child(even) input{
+	background:white ;
+}
+.firstPageButton{
+	display:none;
+}
+
+.lastPageButton{
+	display:none;
+}
+
+.mainLayoutPanel {
+	margin-top:70px; 
+}
+
+header#mainHeaderPanel{
+	height:38px !important;
+	padding:4px !important;
+	padding-left:0px !important;
+}
+
+
+button.mainHeaderButton > img {
+	height:32px;
+	width:32px;
+}
+
+.phoneNavigationBar {
+	display:inherit !important;
+}
+
+.WebResultsDetailPanel {
+	font-size: 0.8em;
+}
+
+.WebResultDetailTabPanel{
+	font-size: 1.2em;
+}
+
+.de2Results_newtable_newrichdatatable tr > td:first-child, .de2Results_newtable_newrichdatatable tr > th:first-child{
+	display:none;
+}

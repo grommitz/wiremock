@@ -1,0 +1,39 @@
+/* 
+    Document   : blackHoleStar
+    Created on : 30-Jan-2012, 15:16:04
+    Author     : adrian
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#superRichDatatable {
+	height:500px; 
+	overflow-y:auto; 
+	margin-bottom:16px; 
+}
+
+.my-new-list > div {
+    padding: 8px;
+}
+.my-new-list > div:nth-child(2n) {
+    background: #F1F0F0; 
+}
+
+.rowTitle {
+    font-weight: bold;
+}
+.rowUrl {
+    color: green;
+    font-size: 0.8em;
+}
+.rowAbstract {
+    font-size: 0.8em;
+}
+.selectorTransition {
+	-webkit-transition: all .4s ease-in-out; 
+	-moz-transition: all .4s ease-in-out;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ImageFlare 2.0 Testbed</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/toastr.css">
+</head>
+
+<body>
+
+  <script type="text/x-handlebars" id="application">
+    <div class="container" id="application">
+
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">ImageFlare 2.0 Testbed</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li>{{#link-to 'test'}}Test{{/link-to}}</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>{{#link-to 'settings'}}Settings{{/link-to}}</li>
+              <li>{{#link-to 'about'}}About{{/link-to}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {{outlet}}
+    </div>
+  </script>
+
+  <!-- ####################################################################################################################################-->
+  <!-- ############################################ TEST ##################################################################################-->
+  <!-- ####################################################################################################################################-->
+
+  <script type="text/x-handlebars" id="traffic">
+    <div class="page-header">
+        <h1>Logo Matching Test</h1>
+    </div>
+    <p class="lead">Image urls</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div>{{textarea value=urls cols="50" rows="7"}}</div>
+      </div>
+      <div class="col-md-2">
+        <button id='lookup-button' {{action 'runTest'}}>Go!</button><br>
+      </div>
+      <div class="col-md-6">
+        todo
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="chart" style="width:80%; margin-left:auto; margin-right:auto; height:100%;"></div>
+        {{outlet testResults}}
+      </div>
+    </div>
+  </script>
+
+
+  <script type="text/x-handlebars" id="hosts">
+    <div class="row">
+      <div class="col-md-4" style="font-weight:bold">Host</div>
+      <div class="col-md-4" style="font-weight:bold">Date</div>
+      <div class="col-md-4" style="font-weight:bold">Traffic Per Million</div>
+    </div>
+    {{#each item in content}}
+      {{render 'host' item}}
+    {{/each}}
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="host">
+      <div class="row">
+        <div class="col-md-4">{{host}}</div>
+        <div class="col-md-4">{{formattedTimestamp}}</div>
+        <div class="col-md-4">{{trafficPerMillion}} 
+          {{#if history}}
+            {{input type="checkbox" name="addToChart" checkedBinding="view.isChecked"}}
+            {{#link-to 'chart' this}}(History){{/link-to}}
+          {{/if}}
+        </div>
+      </div>
+  </script>
+
+  <!-- ####################################################################################################################################-->
+  <!-- ####################################### ABOUT ######################################################################################-->
+  <!-- ####################################################################################################################################-->
+
+
+  <script type="text/x-handlebars" id="about">
+    <p class="lead">ImageFlare 2.0</p>
+    <p>by Martin Charlesworth</p>
+  </script>
+
+
+
+  <!-- ####################################################################################################################################-->
+  <!-- ######################################## SETTINGS ##################################################################################-->
+  <!-- ####################################################################################################################################-->
+
+  <script type="text/x-handlebars" id="settings">
+    <p class="lead">Settings</p>
+    <div class="row">
+      <div class="col-md-3">Matching threshold</div>
+      <div class="col-md-3">{{input type='text' value=matchThreshold}}</div>
+    </div>
+  </script>
+
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.3.1.js"></script>
+  <script src="js/libs/moment.min.js"></script>
+  <script src="js/libs/toastr.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="js/dummyData.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <!--<script src="tests/runner.js"></script>-->
+</body>
+</html>
