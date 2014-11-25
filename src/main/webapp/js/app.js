@@ -1,7 +1,7 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-  this.resource('test', function() {
+  this.resource('mtest', function() {
     this.resource('results', {path: '/results'});
   });
   this.route('about');
@@ -24,18 +24,18 @@ App.Settings = Ember.Mixin.create({
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 App.IndexRoute = Ember.Route.extend({
   beforeModel: function() {
-    this.transitionTo('test');
+    this.transitionTo('mtest');
   }
 });
 
-App.TestResultsRoute = Ember.Route.extend(App.Settings, {
+App.ResultsRoute = Ember.Route.extend(App.Settings, {
   model: function() {
     return Ember.$.getJSON("http://localhost:8089/logo/test").then(
       function(json) {
         return App.SearchResult.create().from(json);
       },
       function(err) {
-        toastr['error']('Error getting results');
+        toastr['error']('Error fetching results');
       }
     )
   }
@@ -45,13 +45,13 @@ App.TestResultsRoute = Ember.Route.extend(App.Settings, {
 // CONTROLLERS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-App.TestController = Ember.ArrayController.extend(App.Settings, {
+App.MtestController = Ember.ArrayController.extend(App.Settings, {
   urls: null,
   actions: {
     runTest: function() {
-      var urlz = this.get('urls').split('\n');
-      toastr['error']('matching ' + urlz[0]);
-      this.transitionToRoute('testResults');
+      //var urlz = this.get('urls').split('\n');
+      toastr['info']('matching...');
+      this.transitionToRoute('results');
     }
   }
 });

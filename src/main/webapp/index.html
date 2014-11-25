@@ -27,7 +27,7 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li>{{#link-to 'test'}}Test{{/link-to}}</li>
+              <li>{{#link-to 'mtest'}}Testing{{/link-to}}</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>{{#link-to 'settings'}}Settings{{/link-to}}</li>
@@ -45,56 +45,48 @@
   <!-- ############################################ TEST ##################################################################################-->
   <!-- ####################################################################################################################################-->
 
-  <script type="text/x-handlebars" id="traffic">
+  <script type="text/x-handlebars" id="mtest">
     <div class="page-header">
         <h1>Logo Matching Test</h1>
     </div>
-    <p class="lead">Image urls</p>
     <div class="row">
       <div class="col-md-4">
-        <div>{{textarea value=urls cols="50" rows="7"}}</div>
+        <p class="lead">Logo</p>
+        <div>{{input value=logo cols="50" rows="7"}}</div>
       </div>
       <div class="col-md-2">
-        <button id='lookup-button' {{action 'runTest'}}>Go!</button><br>
+        <button id='test-button' {{action 'runTest'}}>Go!</button><br>
       </div>
       <div class="col-md-6">
-        todo
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <p class="lead">Keywords</p>
+        <div>{{input value=kw cols="50" rows="7"}}</div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div id="chart" style="width:80%; margin-left:auto; margin-right:auto; height:100%;"></div>
-        {{outlet testResults}}
+        {{outlet}}
       </div>
     </div>
   </script>
 
-
-  <script type="text/x-handlebars" id="hosts">
+  <script type="text/x-handlebars" id="results">
+    Results:
+    {{#each results}}
     <div class="row">
-      <div class="col-md-4" style="font-weight:bold">Host</div>
-      <div class="col-md-4" style="font-weight:bold">Date</div>
-      <div class="col-md-4" style="font-weight:bold">Traffic Per Million</div>
-    </div>
-    {{#each item in content}}
-      {{render 'host' item}}
-    {{/each}}
-    {{outlet}}
-  </script>
-
-  <script type="text/x-handlebars" id="host">
-      <div class="row">
-        <div class="col-md-4">{{host}}</div>
-        <div class="col-md-4">{{formattedTimestamp}}</div>
-        <div class="col-md-4">{{trafficPerMillion}} 
-          {{#if history}}
-            {{input type="checkbox" name="addToChart" checkedBinding="view.isChecked"}}
-            {{#link-to 'chart' this}}(History){{/link-to}}
-          {{/if}}
-        </div>
+      <div class="col-md-9">
+        Image url: {{url}}
       </div>
+      <div class="col-md-3">
+        Score: {{score}}
+      </div>
+    </div>
+    {{/each}}
   </script>
-
   <!-- ####################################################################################################################################-->
   <!-- ####################################### ABOUT ######################################################################################-->
   <!-- ####################################################################################################################################-->
@@ -121,8 +113,8 @@
 
 
   <script src="js/libs/jquery-1.10.2.js"></script>
-  <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.3.1.js"></script>
+  <script src="js/libs/handlebars-v1.3.0.js"></script>
+  <script src="js/libs/ember-1.8.1.js"></script>
   <script src="js/libs/moment.min.js"></script>
   <script src="js/libs/toastr.js"></script>
   <script src="http://code.highcharts.com/highcharts.js"></script>
