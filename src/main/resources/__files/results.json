@@ -1,9 +1,16 @@
-[ {
-  "url" : "http://snowbrains.com/wp-content/uploads/2014/10/nike_network_redesign-620x323.jpg",
-  "score" : 0.0
- }, {
-  "url" : "http://graphicdesignnyc.net/wp-content/uploads/2012/10/nike.png",
-  "score" : 0.56655
- } ]
+{
+ "start" : 0,
+ "totalResults" : 50,
+ "pageSize" : 2,
+ "results" : [
+  {
+   "url" : "http://snowbrains.com/wp-content/uploads/2014/10/nike_network_redesign-620x323.jpg",
+   "score" : 0.0
+  }, {
+   "url" : "http://graphicdesignnyc.net/wp-content/uploads/2012/10/nike.png",
+   "score" : 0.56655
+  }
+ ]
+}
 
   

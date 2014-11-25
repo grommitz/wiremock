@@ -18,10 +18,11 @@ public class RunWiremock {
 				.withRootDirectory("src/main/resources").port(8089));
 		
 		server.stubFor(get(urlEqualTo("/logo/test"))
-				.withHeader("Accept", equalTo("application/json"))
+				//.withHeader("Accept", equalTo("application/json"))
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader("Content-Type", "application/json")
+						.withHeader("Access-Control-Allow-Origin", "*")
 						.withBodyFile("results.json")));
 		server.start();
 
