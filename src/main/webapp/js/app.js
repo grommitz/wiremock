@@ -4,6 +4,7 @@ App.Router.map(function() {
   this.resource('mtest', function() {
     this.resource('mresults', {path: '/results'});
   });
+  this.resource('training', {path: '/training'});
   this.route('about');
   this.route('settings');
 });
@@ -18,19 +19,6 @@ App.Settings = Ember.Mixin.create({
     this.set('matchingThreshold', 0.1);
   }
 });
-App.Matcher = Ember.Mixin.create({
-  doMatch: function(logoid, kw) {
-    toastr['info']('Searching for logo ' + logoid + ' with keywords ' + kw + '...');
-    return Ember.$.getJSON("http://localhost:8089/logo/test").then(
-      function(json) {
-        return App.SearchResult.create().from(json, "-");
-      },
-      function(err) {
-        toastr['error']('Error fetching results');
-      }
-    );
-  }
-});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ROUTES
@@ -41,12 +29,21 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-App.MresultsRoute = Ember.Route.extend(App.Settings, App.Matcher, {
+App.MresultsRoute = Ember.Route.extend(App.Settings, {
   model: function(params) {
     var kw = this.controllerFor('mtest').get('kw');
-    var logoid = this.controllerFor('mtest').get('logoid.id');
-    //return this.doMatch(logoid, kw);
-    toastr['info']('Searching for logo ' + logoid + ' with keywords ' + kw + '...');
+    if (kw === null) {
+      toastr['error']('No keywords');
+      this.transitionTo('mtest');
+      return;
+    }
+    var logo = this.controllerFor('mtest').get('selectedLogo');
+    if (logo === null) {
+      toastr['error']('No logo selected');
+      this.transitionTo('mtest');
+      return;
+    }
+    toastr['info']('Querying google images for \"' + kw + '\" and matching the images against ' + logo.name + '...');
     return Ember.$.getJSON("http://localhost:8089/logo/test").then(
       function(json) {
         console.log(json);
@@ -66,16 +63,13 @@ App.MresultsRoute = Ember.Route.extend(App.Settings, App.Matcher, {
 var nike = {id: 12345, name: 'nike'}
 var adidas = {id: 98765, name: 'adidas'};
 
-App.MtestController = Ember.ArrayController.extend(App.Settings, App.Matcher, {
+App.MtestController = Ember.ArrayController.extend(App.Settings, {
   logos: [ nike, adidas ],
-  logoid: 0,
-  kw: "",
+  selectedLogo: null,
+  kw: null,
   actions: {
     runTest: function() {
-      //var urlz = this.get('urls').split('\n');
-      //var searchResult = this.doMatch(this.get('logoid.id'), this.get('kw'));
-
-      this.transitionToRoute('mresults'); //, { kw: this.get('kw'), logoid: this.get('logoid.id') } );
+      this.transitionToRoute('mresults');
     }
   }
 });
