@@ -75,11 +75,14 @@
     <p class="lead">Results {{start}} - {{end}} of {{totalResults}}:</p>
     {{#each results}}
     <div class="row">
-      <div class="col-md-9">
-        <img width="500" {{bind-attr src="url" alt="p"}}>
+      <div class="col-md-6">
+        <img width="400" {{bind-attr src=url alt="p"}}>
       </div>
       <div class="col-md-3">
         Score: {{score}}
+      </div>
+      <div class="col-md-3">
+        <a {{bind-attr href=matchUrl}}>View matching information</a>
       </div>
     </div>
     {{/each}}

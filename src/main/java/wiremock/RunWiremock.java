@@ -4,7 +4,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -18,12 +18,20 @@ public class RunWiremock {
 				.withRootDirectory("src/main/resources").port(8089));
 		
 		server.stubFor(get(urlEqualTo("/logo/test"))
-				//.withHeader("Accept", equalTo("application/json"))
-				.willReturn(aResponse()
-						.withStatus(200)
+				.willReturn(aResponse().withStatus(200)
 						.withHeader("Content-Type", "application/json")
 						.withHeader("Access-Control-Allow-Origin", "*")
 						.withBodyFile("results.json")));
+
+		server.stubFor(get(urlEqualTo("/logo/matchInfo?matched"))
+				.willReturn(aResponse().withStatus(200)
+						.withHeader("Access-Control-Allow-Origin", "*")
+						.withBodyFile("nikeMatchInfo.png")));
+		
+		server.stubFor(get(urlEqualTo("/logo/matchInfo?nomatch"))
+				.willReturn(aResponse().withStatus(200)
+						.withHeader("Access-Control-Allow-Origin", "*")
+						.withBodyFile("nomatch.jpg")));
 		server.start();
 
 		int secs = 0;
