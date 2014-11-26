@@ -2,3 +2,28 @@
 .ember-application {
     margin: 20px;
 }
+
+.modal2 {
+  position: relative;
+  margin: 10px auto;
+  width: 600px;
+  background-color: #fff;
+  padding: 1em;
+}
+
+input {
+  width: 100%;
+}
+
+.overlay2 {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.flush--top {
+  margin-top: 0;  
+}

@@ -1,8 +1,10 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-  this.resource('mtest', function() {
+  this.resource('mtest', {path: '/test'}, function() {
     this.resource('mresults', {path: '/results'});
+    this.resource('matchInfo', {path: '/match'});
+    this.resource('modal', {path: '/modal'});
   });
   this.resource('training', {path: '/training'});
   this.route('about');
@@ -23,6 +25,18 @@ App.Settings = Ember.Mixin.create({
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ROUTES
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+App.ApplicationRoute = Ember.Route.extend({
+  actions: {
+    openModal: function(modalName) {
+      this.render(modalName, {
+        into: 'mtest',
+        outlet: 'modal'
+      });
+      $("#myModal").modal('show');
+    }
+  }
+});
+
 App.IndexRoute = Ember.Route.extend({
   beforeModel: function() {
     this.transitionTo('mtest');
@@ -32,7 +46,7 @@ App.IndexRoute = Ember.Route.extend({
 App.MresultsRoute = Ember.Route.extend(App.Settings, {
   model: function(params) {
     var kw = this.controllerFor('mtest').get('kw');
-    if (kw === null) {
+    if (kw === null || kw === "") {
       toastr['error']('No keywords');
       this.transitionTo('mtest');
       return;
@@ -53,6 +67,39 @@ App.MresultsRoute = Ember.Route.extend(App.Settings, {
         toastr['error']('Error fetching results');
       }
     );
+  },
+  actions: {
+    openModal: function(modalName, model) {
+      console.log("opening modal " + modalName + " with " + model);
+      this.controllerFor(modalName).set('model', model);
+      return this.render(modalName, {
+        into: 'mresults',
+        outlet: 'modal'
+      });
+    },
+    
+    closeModal: function() {
+      return this.disconnectOutlet({
+        outlet: 'modal',
+        parentView: 'mresults'
+      });
+    }
+  }
+});
+
+App.ModalController = Ember.ObjectController.extend({
+  actions: {
+    close: function() {
+      return this.send('closeModal');
+    }
+  }
+});
+
+App.ModalDialogComponent = Ember.Component.extend({
+  actions: {
+    close: function() {
+      return this.sendAction();
+    }
   }
 });
 
@@ -60,11 +107,15 @@ App.MresultsRoute = Ember.Route.extend(App.Settings, {
 // CONTROLLERS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var nike = {id: 12345, name: 'nike'}
-var adidas = {id: 98765, name: 'adidas'};
+var nike = {id: 1, name: 'Nike'}
+var adidas = {id: 2, name: 'Adidas'};
+var reebok = {id: 3, name: 'Reebok'};
+var danfoss = {id: 4, name: 'Danfoss'};
+var pepsi = {id: 5, name: 'Pepsi'};
+var vw = {id: 6, name: 'Volkswagen'};
 
 App.MtestController = Ember.ArrayController.extend(App.Settings, {
-  logos: [ nike, adidas ],
+  logos: [ nike, adidas, reebok, danfoss, pepsi, vw ],
   selectedLogo: null,
   kw: null,
   actions: {
