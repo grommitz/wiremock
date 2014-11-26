@@ -32,6 +32,7 @@ App.ResultsRoute = Ember.Route.extend(App.Settings, {
   model: function() {
     return Ember.$.getJSON("http://localhost:8089/logo/test").then(
       function(json) {
+        toastr['info']('matching, be patient...');
         return App.SearchResult.create().from(json);
       },
       function(err) {
@@ -46,14 +47,19 @@ App.ResultsRoute = Ember.Route.extend(App.Settings, {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 App.MtestController = Ember.ArrayController.extend(App.Settings, {
-  urls: null,
+  kw: null,
   actions: {
     runTest: function() {
       //var urlz = this.get('urls').split('\n');
-      toastr['info']('matching...');
       this.transitionToRoute('results');
     }
   }
+});
+
+App.ResultsController = Ember.ObjectController.extend(App.Settings, {
+  end: function() {
+    return this.get('start') + this.get('pageSize') - 1;
+  }.property()
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,10 +76,10 @@ App.SearchResult = Ember.Object.extend({
     this.set('results',Em.A());
   },
   from: function(json, searchText) {
-    this.set('searchText',searchText);
-    this.set('start',json.start+1);
+    this.set('searchText', searchText);
+    this.set('start', json.start + 1);
     this.set('totalResults', json.totalResults);
-    this.set('end', json.start+json.pageSize);
+    this.set('pageSize', json.pageSize);
     var _this=this;
     json.results.forEach(function(r) {
       _this.get('results').pushObject(Ember.Object.create(r));

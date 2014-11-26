@@ -49,24 +49,21 @@
     <div class="page-header">
         <h1>Logo Matching Test</h1>
     </div>
+    
     <div class="row">
-      <div class="col-md-4">
-        <p class="lead">Logo</p>
-        <div>{{input value=logo cols="50" rows="7"}}</div>
-      </div>
+      <div class="col-md-2">Logo ID</div>
+      <div class="col-md-4">{{input value=logo cols="50" rows="7"}}</div>
       <div class="col-md-2">
         <button id='test-button' {{action 'runTest'}}>Go!</button><br>
       </div>
-      <div class="col-md-6">
-        
-      </div>
+      <div class="col-md-4">&nbsp;</div>
     </div>
+    
     <div class="row">
-      <div class="col-md-4">
-        <p class="lead">Keywords</p>
-        <div>{{input value=kw cols="50" rows="7"}}</div>
-      </div>
+      <div class="col-md-2">Keywords</div>
+      <div class="col-md-4">{{input value=kw cols="50" rows="7"}}</div>
     </div>
+
     <div class="row">
       <div class="col-md-12">
         {{outlet}}
@@ -75,11 +72,11 @@
   </script>
 
   <script type="text/x-handlebars" id="results">
-    Results:
+    <p class="lead">Results {{start}} - {{end}} of {{totalResults}}:</p>
     {{#each results}}
     <div class="row">
       <div class="col-md-9">
-        Image url: {{url}}
+        <img width="500" {{bind-attr src="url" alt="p"}}>
       </div>
       <div class="col-md-3">
         Score: {{score}}
