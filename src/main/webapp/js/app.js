@@ -2,7 +2,7 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
   this.resource('mtest', function() {
-    this.resource('results', {path: '/results'});
+    this.resource('mresults', {path: '/results'});
   });
   this.route('about');
   this.route('settings');
@@ -18,6 +18,19 @@ App.Settings = Ember.Mixin.create({
     this.set('matchingThreshold', 0.1);
   }
 });
+App.Matcher = Ember.Mixin.create({
+  doMatch: function(logoid, kw) {
+    toastr['info']('Searching for logo ' + logoid + ' with keywords ' + kw + '...');
+    return Ember.$.getJSON("http://localhost:8089/logo/test").then(
+      function(json) {
+        return App.SearchResult.create().from(json, "-");
+      },
+      function(err) {
+        toastr['error']('Error fetching results');
+      }
+    );
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ROUTES
@@ -28,35 +41,46 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
-App.ResultsRoute = Ember.Route.extend(App.Settings, {
-  model: function() {
+App.MresultsRoute = Ember.Route.extend(App.Settings, App.Matcher, {
+  model: function(params) {
+    var kw = this.controllerFor('mtest').get('kw');
+    var logoid = this.controllerFor('mtest').get('logoid.id');
+    //return this.doMatch(logoid, kw);
+    toastr['info']('Searching for logo ' + logoid + ' with keywords ' + kw + '...');
     return Ember.$.getJSON("http://localhost:8089/logo/test").then(
       function(json) {
-        toastr['info']('matching, be patient...');
+        console.log(json);
         return App.SearchResult.create().from(json);
       },
       function(err) {
         toastr['error']('Error fetching results');
       }
-    )
+    );
   }
-})
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONTROLLERS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-App.MtestController = Ember.ArrayController.extend(App.Settings, {
-  kw: null,
+var nike = {id: 12345, name: 'nike'}
+var adidas = {id: 98765, name: 'adidas'};
+
+App.MtestController = Ember.ArrayController.extend(App.Settings, App.Matcher, {
+  logos: [ nike, adidas ],
+  logoid: 0,
+  kw: "",
   actions: {
     runTest: function() {
       //var urlz = this.get('urls').split('\n');
-      this.transitionToRoute('results');
+      //var searchResult = this.doMatch(this.get('logoid.id'), this.get('kw'));
+
+      this.transitionToRoute('mresults'); //, { kw: this.get('kw'), logoid: this.get('logoid.id') } );
     }
   }
 });
 
-App.ResultsController = Ember.ObjectController.extend(App.Settings, {
+App.MresultsController = Ember.ObjectController.extend(App.Settings, {
   end: function() {
     return this.get('start') + this.get('pageSize') - 1;
   }.property()
@@ -67,10 +91,10 @@ App.ResultsController = Ember.ObjectController.extend(App.Settings, {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 App.SearchResult = Ember.Object.extend({
+  searchText:null,
   start:0,
-  pageSize:0,
-  end:0,
   totalResults:0,
+  pageSize:0,
   results:null,
   init: function() {
     this.set('results',Em.A());
@@ -81,14 +105,21 @@ App.SearchResult = Ember.Object.extend({
     this.set('totalResults', json.totalResults);
     this.set('pageSize', json.pageSize);
     var _this=this;
-    json.results.forEach(function(r) {
-      _this.get('results').pushObject(Ember.Object.create(r));
-    })
+    if (json.results !== undefined) {
+      json.results.forEach(function(r) {
+        console.log(r);
+        var o = Ember.Object.create(r);
+        _this.get('results').pushObject(o); //Ember.Object.create(r));
+      });
+    }
     return this;
   }
 })
 
 
+//App.ApplicationController = Ember.ObjectController.extend({
+//  logos: [ nike, adidas ]
+//});
 
 
 

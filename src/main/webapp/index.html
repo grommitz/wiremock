@@ -42,7 +42,7 @@
   </script>
 
   <!-- ####################################################################################################################################-->
-  <!-- ############################################ TEST ##################################################################################-->
+  <!-- ############################################ MTEST #################################################################################-->
   <!-- ####################################################################################################################################-->
 
   <script type="text/x-handlebars" id="mtest">
@@ -52,7 +52,13 @@
     
     <div class="row">
       <div class="col-md-2">Logo ID</div>
-      <div class="col-md-4">{{input value=logo cols="50" rows="7"}}</div>
+      <div class="col-md-4">
+          {{view "select"
+            content=logos
+            selection=logoid
+            optionValuePath="content.id"
+            optionLabelPath="content.name"}}
+      </div>
       <div class="col-md-2">
         <button id='test-button' {{action 'runTest'}}>Go!</button><br>
       </div>
@@ -71,12 +77,12 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="results">
+  <script type="text/x-handlebars" id="mresults">
     <p class="lead">Results {{start}} - {{end}} of {{totalResults}}:</p>
     {{#each results}}
     <div class="row">
       <div class="col-md-6">
-        <img width="400" {{bind-attr src=url alt="p"}}>
+        <img width="400" {{bind-attr src=url}} alt="">
       </div>
       <div class="col-md-3">
         Score: {{score}}
@@ -117,11 +123,7 @@
   <script src="js/libs/ember-1.8.1.js"></script>
   <script src="js/libs/moment.min.js"></script>
   <script src="js/libs/toastr.js"></script>
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="js/dummyData.js"></script>
-  <script src="js/charts.js"></script>
   <script src="js/app.js"></script>
-  <!-- to activate the test runner, add the "?test" query string parameter -->
-  <!--<script src="tests/runner.js"></script>-->
+
 </body>
 </html>
